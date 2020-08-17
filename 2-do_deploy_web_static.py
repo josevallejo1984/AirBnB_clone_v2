@@ -1,31 +1,30 @@
 #!/usr/bin/python3
 """Desploy site web."""
-import os.path
-from fabric.api import *
-from fabric.operations import run, put
+import os
+from fabric.api import env, put, run
+
 env.hosts = ['35.231.89.82', '54.226.196.8']
+env.user = "ubuntu"
 
 
 def do_deploy(archive_path):
     """Upload file in the server remote."""
-    if (os.path.isfile(archive_path) is False):
+    if archive_path is None or not os.path.isfile(archive_path):
+        print("Please enter a path to an existing file")
         return False
 
-    try:
-        put(archive_path, "/tmp/")
-        unpack = archive_path.split("/")[-1]
-        folder = ("/data/web_static/releases/" + unpack.split(".")[0])
-        run("sudo mkdir -p {:s}".format(folder))
+    arc_full = os.path.basename(archive_path)
+    arc_short = arc_full.split(".")[0]
 
-        run("sudo tar -xzf /tmp/{:s} -C {:s}".format(unpack, folder))
+    put(local_path=archive_path, remote_path="/tmp/")
+    run("mkdir -p /data/web_static/releases/{}".format(arc_short))
+    run("tar -xzf /tmp/{} -C /data/web_static/releases/{}".format(arc_full,
+                                                                  arc_short))
+    run("rm /tmp/{}".format(arc_full))
+    run("rm -rf /data/web_static/current")
+    run("ln -fs /data/web_static/releases/{}/ \
+        /data/web_static/current".format(arc_short))
+    run("mv /data/web_static/current/web_static/* /data/web_static/current/")
+    run("rm -rf /data/web_static/curren/web_static")
 
-        run("sudo rm /tmp/{:s}".format(unpack))
-        run("sudo mv {:s}/web_static/* {:s}/".format(folder, folder))
-        run("sudo rm -rf {:s}/web_static".format(folder))
-
-        run('sudo rm -rf /data/web_static/current')
-
-        run("sudo ln -s {:s} /data/web_static/current".format(folder))
-        return True
-    except:
-        return False
+    return True
