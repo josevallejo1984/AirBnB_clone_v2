@@ -21,6 +21,6 @@ ln -sf /data/web_static/releases/test /data/web_static/current
 # change ownership to folder /data and all you content
 sudo chown -Rh ubuntu:ubuntu /data/
 # config default file nginx for server to aliases
-udo sed -i '38i\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n' /etc/nginx/sites-available/default
+sudo sed -i '38i\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n' /etc/nginx/sites-available/default
 # start nginx service
 sudo service nginx start
