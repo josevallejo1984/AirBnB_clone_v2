@@ -8,12 +8,12 @@ fi
 
 if [ ! -d "/data/web_static/releases/test" ]
 then
-	mkdir -p /data/web_static/releases/test
+	sudo mkdir -p /data/web_static/releases/test
 fi
 
 if [ ! -d "/data/web_static/shared" ]
 then
-	mkdir -p /data/web_static/shared
+	sudo mkdir -p /data/web_static/shared
 fi
 
 echo -e '<html>
@@ -26,14 +26,14 @@ echo -e '<html>
 
 if [ ! -L "/data/web_static/current" ]
 then
-	ln -s /data/web_static/releases/test /data/web_static/current
+	sudo ln -s /data/web_static/releases/test /data/web_static/current
 else
-	rm -f /data/web_static/current
-	ln -s /data/web_static/releases/test /data/web_static/current
+	sudo rm -f /data/web_static/current
+	sudo ln -s /data/web_static/releases/test /data/web_static/current
 fi
-sudo chown "$USER":"$USER" /data -R
+sudo chown -Rf "$USER":"$USER" /data
 
 TEXT="\\\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}\n"
 sed -i "/server_name localhost;/a $TEXT" /etc/nginx/sites-available/default
 
-sudo service nginx restart
+sudo service nginx start
