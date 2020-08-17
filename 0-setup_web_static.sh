@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 # Script that sets up your web servers for the deployment of web_static. It must:
-file_path="/data/web_static/releases/test/index.html"
 if ! which nginx > /dev/null
 then
 	sudo apt-get -y update
-	sudo apt-get -y install -y nginx
+	sudo apt-get -y install nginx
 fi
 # create folder recursive if not exist
 sudo mkdir -p /data/web_static/releases/test /data/web_static/shared
@@ -15,7 +14,7 @@ echo -e '<html>
   <body>
     Holberton School
   </body>
-</html>' > "$file_path"
+</html>' > /data/web_static/releases/test/index.html
 # create simbolic link
 sudo ln -s /data/web_static/releases/test /data/web_static/current
 # change ownership to folder /data and all you content
