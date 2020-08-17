@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Script that sets up your web servers for the deployment of web_static. It must:
 file_path="/data/web_static/releases/test/index.html"
-if [ ! -e "$(type nginx)" ]
+if ! which nginx > /dev/null
 then
 	sudo apt-get -y update
 	sudo apt-get -y install -y nginx
@@ -17,14 +17,8 @@ echo -e '<html>
   </body>
 </html>' > "$file_path"
 
-if [ ! -L "/data/web_static/current" ]
-then
-	sudo ln -s /data/web_static/releases/test /data/web_static/current
-else
-	sudo rm -f /data/web_static/current
-	sudo ln -s /data/web_static/releases/test /data/web_static/current
-fi
-sudo chown -Rh "$USER":"$USER" /data
+sudo ln -s /data/web_static/releases/test /data/web_static/current
+sudo chown -Rh ubuntu:ubuntu /data
 
 udo sed -i '38i\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n' /etc/nginx/sites-available/default
 
