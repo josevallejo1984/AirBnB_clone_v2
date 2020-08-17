@@ -26,7 +26,6 @@ else
 fi
 sudo chown -Rh "$USER":"$USER" /data
 
-TEXT="\\\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}\n"
-sed -i "/server_name localhost;/a $TEXT" /etc/nginx/sites-available/default
+udo sed -i '38i\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n' /etc/nginx/sites-available/default
 
 sudo service nginx start
