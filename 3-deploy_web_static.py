@@ -51,7 +51,7 @@ def deploy():
     if path is None:
         return False
 
-    # return do_deploy(path)
+    return do_deploy(path)
 
 
 deploy()
