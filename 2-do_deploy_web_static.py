@@ -1,30 +1,35 @@
 #!/usr/bin/python3
-"""Desploy site web."""
-import os
-from fabric.api import env, put, run
+"""
+A Fabric script (based on the file 1-pack_web_static.py) that distributes
+an archive to my web servers, using the function do_deploy.
+"""
+import os.path
+from fabric.api import *
+from fabric.operations import run, put, sudo
 
+"""my server's ip addresses"""
 env.hosts = ['35.231.89.82', '54.226.196.8']
-env.user = "ubuntu"
 
 
 def do_deploy(archive_path):
-    """Upload file in the server remote."""
-    if archive_path is None or not os.path.isfile(archive_path):
-        print("Please enter a path to an existing file")
+    """do_deploy function."""
+    if (os.path.isfile(archive_path) is False):
         return False
 
-    arc_full = os.path.basename(archive_path)
-    arc_short = arc_full.split(".")[0]
+    try:
+        file_name = archive_path.split("/")[-1]
+        new_folder = ("/data/web_static/releases/" + file_name.split(".")[0])
 
-    put(local_path=archive_path, remote_path="/tmp/")
-    run("mkdir -p /data/web_static/releases/{}".format(arc_short))
-    run("tar -xzf /tmp/{} -C /data/web_static/releases/{}".format(arc_full,
-                                                                  arc_short))
-    run("rm /tmp/{}".format(arc_full))
-    run("rm -rf /data/web_static/current")
-    run("ln -fs /data/web_static/releases/{}/ \
-        /data/web_static/current".format(arc_short))
-    run("mv /data/web_static/current/web_static/* /data/web_static/current/")
-    run("rm -rf /data/web_static/curren/web_static")
+        put(archive_path, "/tmp/")
+        run("sudo mkdir -p {}".format(new_folder))
+        run("sudo tar -xzf /tmp/{} -C {}".
+            format(file_name, new_folder))
+        run("sudo rm /tmp/{}".format(file_name))
+        run("sudo mv {}/web_static/* {}/".format(new_folder, new_folder))
+        run("sudo rm -rf {}/web_static".format(new_folder))
+        run('sudo rm -rf /data/web_static/current')
+        run("sudo ln -s {} /data/web_static/current".format(new_folder))
+        return True
 
-    return True
+    except:
+        return False
