@@ -3,18 +3,11 @@
 file_path="/data/web_static/releases/test/index.html"
 if [ ! -e "$(type nginx)" ]
 then
-	sudo apt install -y nginx
+	sudo apt-get -y update
+	sudo apt-get -y install -y nginx
 fi
 
-if [ ! -d "/data/web_static/releases/test" ]
-then
-	sudo mkdir -p /data/web_static/releases/test
-fi
-
-if [ ! -d "/data/web_static/shared" ]
-then
-	sudo mkdir -p /data/web_static/shared
-fi
+sudo mkdir -p /data/web_static/releases/test /data/web_static/shared
 
 echo -e '<html>
   <head>
@@ -31,7 +24,7 @@ else
 	sudo rm -f /data/web_static/current
 	sudo ln -s /data/web_static/releases/test /data/web_static/current
 fi
-sudo chown -Rf "$USER":"$USER" /data
+sudo chown -Rh "$USER":"$USER" /data
 
 TEXT="\\\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}\n"
 sed -i "/server_name localhost;/a $TEXT" /etc/nginx/sites-available/default
