@@ -22,6 +22,8 @@ def route_hbnb():
     return 'HBNB'
 
 # For handle var in the route must be inside <my_var>
+
+
 @app.route('/c/<text>', strict_slashes=False)
 def route_c(text):
     """Route C
@@ -33,6 +35,8 @@ def route_c(text):
     return 'C' + ' ' + text.replace('_', ' ')
 
 # One route for python lonly and other for add var to route
+
+
 @app.route('/python', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def route_python(text='is cool'):
