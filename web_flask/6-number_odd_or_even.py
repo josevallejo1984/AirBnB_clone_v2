@@ -82,7 +82,12 @@ def route_template_two(n):
     Returns:
         html: static html from template
     """
-    return render_template('6-number_odd_or_even.html', name=n)
+    if n % 2 == 0:
+        kind = "even"
+    else:
+        kind = "odd"
+
+    return render_template('6-number_odd_or_even.html', name=n, even=kind)
 
 
 if __name__ == "__main__":
