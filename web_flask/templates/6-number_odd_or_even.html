@@ -4,10 +4,10 @@
         <TITLE>HBNB</TITLE>
     </HEAD>
     <BODY>
-        {% if name % 2 != 0 -%}
-          <H1>{{name}} is even</H1>
-        {% else -%}
-          <H1>{{name}} is odd</H1>
-        {% endif -%}
+      {%- if name % 2 != 0 %}
+        <H1>{{name}} is even</H1>
+      {%- else %}
+        <H1>{{name}} is odd</H1>
+      {%- endif %}
     </BODY>
 </HTML>
