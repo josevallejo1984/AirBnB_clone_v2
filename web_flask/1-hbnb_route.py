@@ -12,6 +12,7 @@ def route_home():
     """
     return 'Hello HBNB!'
 
+
 @app.route('/hbnb', strict_slashes=False)
 def route_hbnb():
     """Route hbnb
@@ -19,6 +20,7 @@ def route_hbnb():
         route: html static
     """
     return 'HBNB'
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='5000')
