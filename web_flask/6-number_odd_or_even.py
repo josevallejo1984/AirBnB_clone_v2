@@ -61,17 +61,27 @@ def route_number(n):
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def route_template(n):
-    """Route
+    """Route template
 
     Args:
-        n (int): inter value recive for url
+        n (int): inter value recive from render_template
+
+    Returns:
+        html: static html from template
     """
     return render_template('5-number.html', name=n)
 
 
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def route_template_two(n):
+    """Route template two
 
+    Args:
+        n (int): inter value recive from render_template
+
+    Returns:
+        html: static html from template
+    """
     return render_template('6-number_odd_or_even.html', name=n)
 
 
