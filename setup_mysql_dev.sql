@@ -1,4 +1,5 @@
 -- SQL Script to create a Database.
+-- How usage: cat setup_mysql_dev.sql | mysql -hlocalhost -uroot -p
 CREATE DATABASE IF NOT EXISTS hbnb_dev_db;
 USE hbnb_dev_db;
 CREATE USER IF NOT EXISTS 'hbnb_dev'@'localhost' IDENTIFIED BY 'hbnb_dev_pwd';
