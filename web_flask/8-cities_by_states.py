@@ -20,9 +20,9 @@ def route1():
     """Display HTML page with a list of
     all objects inside a DBstorage."""
     url = '8-cities_by_states.html'
-    dict_states = storage.all("State")
+    dict_states = storage.all("State").values()
     return render_template(url, states=dict_states)
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port="5000", debug=True)
+    app.run(host='0.0.0.0', port="5000")
