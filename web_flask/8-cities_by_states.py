@@ -4,7 +4,6 @@ starts a Flask web app.
 """
 from models import storage
 from flask import Flask, render_template
-import json
 
 app = Flask(__name__)
 
