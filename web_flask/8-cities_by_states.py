@@ -21,8 +21,7 @@ def route1():
     all objects inside a DBstorage."""
     url = '8-cities_by_states.html'
     dict_states = storage.all("State")
-    dict_cities = storage.all("City")
-    return render_template(url, states=dict_states,  cities=dict_cities)
+    return render_template(url, states=dict_states)
 
 
 if __name__ == "__main__":
