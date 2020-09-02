@@ -12,7 +12,7 @@
               {%- for cyti in cities.values() |sort(attribute="name") %}
                 {%- if cyti.state_id == state.id %}
                   <LI>{{ cyti.id }}: <B>{{ cyti.name }}</B></LI>
-                {%- endif %}
+                {% endif %}
               {%- endfor %}
             </UL>
         {%- endfor %}
