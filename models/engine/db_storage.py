@@ -12,10 +12,13 @@ from models.place import Place
 from models.review import Review
 classes = {"Amenity": Amenity, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
+
+
 class DBStorage():
     """DBStorage."""
     __engine = None
     __session = None
+
     def __init__(self):
         """Init method."""
         mysql_user = getenv('HBNB_MYSQL_USER')
@@ -28,6 +31,7 @@ class DBStorage():
         """If var HBNB_ENV == test, then DROP all the tables."""
         if mysql_env == 'test':
             Base.metadata.drop_all(self.__engine)
+
     def all(self, cls=None):
         """query on the current database session"""
         new_dict = {}
@@ -41,17 +45,21 @@ class DBStorage():
                 key = str(instance.__class__.__name__) + "." + str(instance.id)
                 new_dict[key] = instance
         return (new_dict)
+
     def new(self, obj):
         """Add the object to the current. database session (self.__session)."""
         if obj:
             self.__session.add(obj)
+
     def save(self):
         """Commit all changes of the current. database session."""
         self.__session.commit()
+
     def delete(self, obj=None):
         """Delete from the current database session obj if not None."""
         if obj:
             self.__session.delete(obj)
+
     def reload(self):
         """Create all tables in the database (feature of SQLAlchemy)."""
         Base.metadata.create_all(self.__engine)
@@ -59,6 +67,7 @@ class DBStorage():
                                       expire_on_commit=False)
         Session = scoped_session(self.__session)
         self.__session = Session()
+
     def close(self):
         """Close SQLAlchemy actual session"""
         self.__session.close()
