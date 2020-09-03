@@ -40,7 +40,13 @@
 
 	border: 1px solid #DDDDDD;
 	border-radius: 4px;
+
+	max-height: 300px;
+	overflow-y: scroll;
+	/* Hide scrollbar for Firefox */
+	scrollbar-width: none;
 }
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .popover::-webkit-scrollbar {
 	display: none;
@@ -48,20 +54,10 @@
 
 .locations:hover .popover {
 	display: inline-block;
-	max-height: 300px;
-	overflow-y: scroll;
-	/* Hide scrollbar for Firefox */
-	scrollbar-width: none;
-
 }
 
 .filter_amenities:hover .popover {
 	display: inline-block;
-	max-height: 300px;
-	overflow-y: scroll;
-	/* Hide scrollbar for IE, Edge and Firefox */
-	-ms-overflow-style: none; /* IE and Edge */
-	scrollbar-width: none; /* Firefox */
 }
 
 ul {
